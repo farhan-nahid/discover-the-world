@@ -5,12 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discover The World</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
     <!-- link css -->
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <main class="container">
+    <header>
       <h1>Discover The World</h1>
+    </header>
+    <main class="container">
+      <!-- loading spinner -->
+      <div id="loading__spinner">
+        <img src="./assets/images/loading.gif" alt="" />
+      </div>
+      <!-- show country -->
+      <section id="country__container"></section>
+      <!-- show error -->
+      <section id="error"></section>
     </main>
     <!-- js link -->
     <script src="./assets/js/index.js"></script>
