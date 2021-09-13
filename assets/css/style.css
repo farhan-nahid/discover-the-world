@@ -154,11 +154,24 @@ header h1 {
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   position: fixed;
+  animation: 1s fadedAnimation linear;
+}
+
+@keyframes fadedAnimation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .modal {
   width: 600px;
-  margin: 20% auto;
+  margin: 15% auto;
 }
 
 .modal__header {
@@ -223,6 +236,12 @@ header h1 {
 @media only screen and (max-width: 778px) {
   #country__container {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .modal {
+    width: 90%;
   }
 }
 
