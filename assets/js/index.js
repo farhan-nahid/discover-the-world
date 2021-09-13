@@ -1,12 +1,20 @@
 const errorMessage = document.getElementById("error");
 const loadingSpinner = document.getElementById("loading__spinner");
+const modalContainer = document.getElementById("modal__container");
 errorMessage.style.display = "none";
 loadingSpinner.style.display = "none";
+modalContainer.style.display = "none";
+
+//load data from api
 
 const loadAlCountry = () => {
+  loadingSpinner.style.display = "block";
   fetch("https://restcountries.eu/rest/v2/all")
     .then((res) => res.json())
-    .then((data) => displayAllCountry(data))
+    .then((data) => {
+      loadingSpinner.style.display = "none";
+      displayAllCountry(data);
+    })
     .catch((error) => {
       errorMessage.style.display = "block";
       errorMessage.innerHTML = `
@@ -17,6 +25,8 @@ const loadAlCountry = () => {
 
 // call function
 loadAlCountry();
+
+// display data from api
 
 const displayAllCountry = (countryData) => {
   const countryContainer = document.getElementById("country__container");
@@ -34,16 +44,23 @@ const displayAllCountry = (countryData) => {
   }
 };
 
-// open modal
+//  show details in a modal
 
 const openModal = (name) => {
+  loadingSpinner.style.display = "block";
   fetch(`https://restcountries.eu/rest/v2/name/${name}`)
     .then((res) => res.json())
-    .then((data) => displayModal(data[0]));
+    .then((data) => {
+      loadingSpinner.style.display = "none";
+      displayModal(data[0]);
+    });
 };
 
+// display modal contents
+
 const displayModal = (country) => {
-  console.log(country);
+  // destructure object properties
+
   const {
     name,
     region,
@@ -52,50 +69,104 @@ const displayModal = (country) => {
     nativeName,
     demonym,
     capital,
+    topLevelDomain,
+    subregion,
     area,
     alpha3Code,
     languages,
+    translations,
+    timezones,
+    currencies,
+    callingCodes,
   } = country;
 
-  const modalContainer = document.getElementById("modal__container");
   modalContainer.textContent = "none";
   modalContainer.style.display = "block";
   const modal = document.createElement("div");
   modal.classList.add("modal");
   modal.innerHTML = `
+          <div class = "modal__content">
             <div class="modal__header">
               <h2>Name: ${name}</h2>
               <button id="close__modal" onclick = "closeModal()">&times;</button>
             </div>
             <div class="modal__body">
-              <h5>Capital: ${capital} </h5>
-              <h5>Area: ${area} </h5>
-              <h5>Alpha3Code: ${alpha3Code} </h5>
-              <h5>Region: ${region} </h5>
-              <h5>Population: ${population} </h5>
-              <h5>NumericCode: ${numericCode} </h5>
-              <h5>NativeName: ${nativeName} </h5>
-              <h5>Demonym: ${demonym} </h5>    
+            <table>
+              <tbody>
+                <tr>
+                  <td>Capital</td>
+                  <td>${capital} </td>
+                </tr> 
+                <tr>
+                  <td>Area</td>
+                  <td> ${area} </td>
+                </tr> 
+                <tr>
+                  <td>Alpha3 Code</td>
+                  <td>${alpha3Code} </td>
+                </tr>  
+                <tr>
+                  <td>Calling Code</td>
+                  <td>${callingCodes[0]} </td>
+                </tr> 
+                <tr>
+                  <td>Region</td>
+                  <td> ${region}</td>
+                </tr> 
+                <tr>
+                  <td>Subregion</td>
+                  <td> ${subregion}</td>
+                </tr> 
+                <tr>
+                  <td>Population</td>
+                  <td>${population}</td>
+                </tr> 
+                <tr>
+                  <td>Translations</td>
+                  <td>${translations.de}</td>
+                </tr> 
+                <tr>
+                  <td>Currencies Name</td>
+                  <td>${currencies[0].name}</td>
+                </tr> 
+                <tr>
+                  <td>Currencies Symbol</td>
+                  <td>${currencies[0].symbol}</td>
+                </tr> 
+                <tr>
+                  <td>Numeric Code</td>
+                  <td>${numericCode}</td>
+                </tr> 
+                <tr>
+                  <td>Native Name</td>
+                  <td>${nativeName}</td>
+                </tr> 
+                <tr>
+                  <td>Timezones</td>
+                  <td>${timezones[0]}</td>
+                </tr> 
+                <tr>
+                  <td>Top Level Domain</td>
+                  <td>${topLevelDomain[0]}</td>
+                </tr>
+                <tr>
+                  <td>Demonym</td>
+                  <td>${demonym}</td>
+                </tr>          
+              </tbody>
+            </table>
             </div>
             <div class="modal__footer">
               <h4>Language : ${languages[0].name}</h4>
             </div>
-
+          </div>
   `;
 
   modalContainer.appendChild(modal);
 };
 
-const closeModal = () => {
-  document.getElementById("modal__container").style.display = "none";
-};
+// modal close button
 
-/* 
-const spinner = (show) => {
-  if (show === true) {
-    loadingSpinner.style.display = "block";
-  } else {
-    loadingSpinner.style.display = "none";
-  }
+const closeModal = () => {
+  modalContainer.style.display = "none";
 };
- */
