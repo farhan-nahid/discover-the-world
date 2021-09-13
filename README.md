@@ -2,7 +2,7 @@
 
 ---
 
-> This is a simple landing page. In this website we can see 250 countries with their details.
+> This is a simple landing page. On this website, we can see 250 countries with their details.
 
 ---
 
