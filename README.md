@@ -25,12 +25,14 @@
 > All Country
 
 ```
+
 https://restcountries.eu/rest/v2/all
 
 ```
 > Country Detail
 
 ```
+
 https://restcountries.eu/rest/v2/name/{name}
 
 ```
